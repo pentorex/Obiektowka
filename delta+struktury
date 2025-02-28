@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+typedef struct
+{
+    double x1;
+    double x2;
+}wynik;
+
+class rownanie {
+    int a;
+    int b;
+    int c;
+public:
+    rownanie()
+    {
+        a = 0;
+        b = 0;
+        c = 0;
+    };
+    ~rownanie()
+    {
+        cout << "\nUruchomiono destruktor";
+    }
+    void klawiatura()
+    {
+        cout << "Podaj pierwiastki rownania kwadratowego.\nPodaj pierwszy pierwiastek: ";
+        cin >> a;
+        cout << "Podaj drugi pierwiastek: ";
+        cin >> b;
+        cout << "Podaj trzeci pierwiastek: ";
+        cin >> c;
+    };
+    int delta()
+    {
+        int delta = b * b - 4 * a * c;
+        if (delta > 0)
+        {
+            return 1;
+        }
+        if (delta == 0)
+        {
+            return 0;
+        }
+        if (delta < 0)
+        {
+            return -1;
+        }
+    }
+    double jeden()
+    {
+        double x0 = -b / 2 * a;
+        return x0;
+    }
+    wynik dwa()
+    {
+        wynik temp;
+        double delta = sqrt(b * b - 4 * a * c);
+        temp.x1 = -b - delta / 2 * a;
+        temp.x2 = -b + delta / 2 * a;
+        return temp;
+    }
+};
+int main(int argc, char** argv)
+{
+    rownanie r;
+    r.klawiatura();
+    if (r.delta() == -1)
+        cout << "nie ma miejsc zerowych" << endl;
+    else if (r.delta() == 0)
+    {
+        cout << "jest jedno miejsce zerowe" << endl;
+        cout << "x= " << r.jeden();
+    }
+    else
+    {
+        cout << "sa dwa miejsca zerowe" << endl;
+        wynik temp;
+        temp = r.dwa();
+        cout << "x1= " << temp.x1 << endl;
+        cout << "x2= " << temp.x2 << endl;
+    }
+    return 0;
+}
